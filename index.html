@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Best Friend ✨</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+            background-color: #0f172a;
+            transition: background 1s ease-in-out;
+        }
+
+        .font-handwriting { font-family: 'Caveat', cursive; }
+        .font-romantic { font-family: 'Dancing Script', cursive; }
+
+        /* Paper texture background overlay */
+        .paper-overlay {
+            background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Snap Scroll logic */
+        .snap-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+            scroll-behavior: smooth;
+        }
+
+        .snap-section {
+            scroll-snap-align: start;
+            height: 100vh;
+        }
+
+        /* Glassmorphism card */
+        .aesthetic-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            transition: all 0.5s ease;
+        }
+
+        .snap-container::-webkit-scrollbar { display: none; }
+        .snap-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Phase Background Themes */
+        .theme-sun { background: linear-gradient(135deg, #fff7ed 0%, #fde047 25%, #fb923c 60%, #ea580c 100%); }
+        .theme-moon { background: linear-gradient(135deg, #050b14 0%, #0a192f 50%, #1e3a8a 100%); }
+        .theme-stars { background: linear-gradient(135deg, #020617 0%, #0b1329 50%, #1e1b4b 100%); }
+        .theme-nature { background: linear-gradient(135deg, #ecfdf5 0%, #a7f3d0 50%, #10b981 100%); }
+        .theme-eyes { background: linear-gradient(135deg, #fff1f2 0%, #fda4af 50%, #f43f5e 100%); }
+        .theme-congrats { background: linear-gradient(135deg, #fdf4ff 0%, #f5d0fe 50%, #c084fc 100%); }
+
+        /* ULTRA BRIGHT SUN ANIMATIONS & EFFECTS */
+        @keyframes sunRotate {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.25); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes rayPulse {
+            0%, 100% { opacity: 0.75; transform: scale(1) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.35) rotate(15deg); }
+        }
+
+        @keyframes sparkFloat {
+            0% { transform: translateY(0) scale(0.6); opacity: 0; }
+            50% { opacity: 0.9; }
+            100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+        }
+
+        .sun-burst-ultra {
+            background: radial-gradient(circle, rgba(255, 255, 220, 1) 0%, rgba(255, 215, 0, 0.85) 30%, rgba(255, 140, 0, 0.6) 60%, rgba(255, 69, 0, 0) 80%);
+            animation: sunRotate 16s linear infinite;
+        }
+
+        .sun-ray-ultra {
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(254, 240, 138, 0.8) 40%, rgba(251, 146, 60, 0) 75%);
+            animation: rayPulse 3.5s ease-in-out infinite;
+        }
+
+        .solar-spark {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(250,204,21,0.9) 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 15px #fde047, 0 0 25px #ea580c;
+            animation: sparkFloat 5s ease-in-out infinite;
+        }
+
+        /* MOON EFFECTS */
+        @keyframes moonGlow {
+            0%, 100% { box-shadow: 0 0 50px 20px rgba(255, 255, 255, 0.4), 0 0 120px 50px rgba(147, 197, 253, 0.3); }
+            50% { shadow: 0 0 90px 40px rgba(255, 255, 255, 0.7), 0 0 180px 80px rgba(147, 197, 253, 0.5); }
+        }
+
+        @keyframes mistMove {
+            0% { transform: translateX(-10%); opacity: 0.3; }
+            50% { transform: translateX(10%); opacity: 0.7; }
+            100% { transform: translateX(-10%); opacity: 0.3; }
+        }
+
+        .moon-halo { animation: moonGlow 5s ease-in-out infinite; }
+        .night-mist { animation: mistMove 12s ease-in-out infinite; }
+
+        /* NATURE ANIMATIONS */
+        @keyframes birdFly {
+            0% { transform: translateX(-10vw) translateY(5vh) scale(0.6); }
+            50% { transform: translateX(50vw) translateY(-3vh) scale(0.9); }
+            100% { transform: translateX(110vw) translateY(2vh) scale(0.6); }
+        }
+
+        @keyframes leafFall {
+            0% { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity: 0.9; }
+            25% { transform: translateY(30vh) rotate(90deg) translateX(40px); }
+            50% { transform: translateY(60vh) rotate(180deg) translateX(-30px); }
+            75% { transform: translateY(85vh) rotate(270deg) translateX(30px); }
+            100% { transform: translateY(110vh) rotate(360deg) translateX(0); opacity: 0; }
+        }
+
+        .animate-bird {
+            position: absolute;
+            animation: birdFly 14s linear infinite;
+        }
+
+        .animate-rich-leaf {
+            position: absolute;
+            animation: leafFall 9s ease-in-out infinite;
+        }
+
+        /* Confetti */
+        @keyframes confettiFall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+        }
+        .confetti-piece {
+            position: absolute;
+            animation: confettiFall 4s linear infinite;
+        }
+    </style>
+</head>
+<body id="mainBody" class="theme-sun relative text-gray-800 select-none">
+
+    <!-- Paper Texture Overlay Layer -->
+    <div class="fixed inset-0 paper-overlay pointer-events-none z-10"></div>
+
+    <!-- Phase 1: Ultra-Bright Solar Layer -->
+    <div id="sun-layer" class="phase-layer fixed inset-0 pointer-events-none z-0 transition-opacity duration-1000 opacity-100">
+        <!-- Bright Background Glow -->
+        <div class="absolute inset-0 bg-gradient-to-b from-amber-300/40 via-orange-400/30 to-amber-500/50 mix-blend-screen"></div>
+        <!-- Ultra Solar Core -->
+        <div class="sun-burst-ultra absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full blur-2xl"></div>
+        <!-- High Intensity Sunbeams -->
+        <div class="sun-ray-ultra absolute -top-20 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full blur-3xl"></div>
+        <div class="sun-ray-ultra absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full blur-2xl"></div>
+        <!-- Dynamic Floating Solar Sparks -->
+        <div id="solarSparksContainer" class="absolute inset-0 overflow-hidden"></div>
+    </div>
+
+    <!-- Phase 2: Moon Layer -->
+    <div id="moon-layer" class="phase-layer fixed inset-0 pointer-events-none z-0 transition-opacity duration-1000 opacity-0">
+        <div class="moon-halo absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] bg-slate-100/50 rounded-full blur-2xl"></div>
+        <div class="night-mist absolute inset-0 bg-gradient-to-r from-blue-900/40 via-indigo-900/50 to-blue-900/40 blur-3xl"></div>
+        <div class="absolute bottom-10 left-0 right-0 h-64 bg-gradient-to-t from-slate-950/80 to-transparent"></div>
+    </div>
+
+    <!-- Phase 3: Stars Canvas Layer -->
+    <canvas id="starsCanvas" class="phase-layer fixed inset-0 pointer-events-none z-0 transition-opacity duration-1000 opacity-0"></canvas>
+
+    <!-- Phase 4: Nature Layer -->
+    <div id="nature-layer" class="phase-layer fixed inset-0 pointer-events-none z-0 transition-opacity duration-1000 opacity-0">
+        <div class="animate-bird top-[15%]" style="animation-delay: 0s;"><i class="fa-solid fa-dove text-emerald-800/80 text-2xl"></i></div>
+        <div class="animate-bird top-[28%]" style="animation-delay: 4s;"><i class="fa-solid fa-crow text-emerald-900/70 text-xl"></i></div>
+        <div class="animate-bird top-[42%]" style="animation-delay: 8s;"><i class="fa-solid fa-dove text-teal-800/80 text-lg"></i></div>
+    </div>
+
+    <!-- Phase 5: Eyes / Hearts Layer -->
+    <div id="eyes-layer" class="phase-layer fixed inset-0 pointer-events-none z-0 transition-opacity duration-1000 opacity-0"></div>
+
+    <!-- Phase 6: Celebration Layer -->
+    <div id="congrats-layer" class="phase-layer fixed inset-0 pointer-events-none z-0 transition-opacity duration-1000 opacity-0"></div>
+
+    <!-- Audio Player Toggle -->
+    <div class="fixed top-5 right-5 z-50 flex items-center gap-3">
+        <div class="bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-xl border border-pink-200 flex items-center gap-3">
+            <button id="musicToggle" class="text-pink-600 hover:text-pink-700 focus:outline-none text-lg transition transform active:scale-95">
+                <i id="musicIcon" class="fa-solid fa-compact-disc"></i>
+            </button>
+            <span id="musicText" class="text-xs font-bold text-gray-700 hidden sm:inline">Play Ambient Sound</span>
+        </div>
+        <audio id="bgAudio" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=soft-piano-113972.mp3"></audio>
+    </div>
+
+    <!-- Side Navigation Dots -->
+    <div class="fixed right-5 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-40">
+        <button onclick="scrollToSlide(0)" class="nav-dot w-3.5 h-3.5 rounded-full bg-amber-400 opacity-40 transition-all duration-300 hover:scale-125" title="Sun"></button>
+        <button onclick="scrollToSlide(1)" class="nav-dot w-3.5 h-3.5 rounded-full bg-blue-400 opacity-40 transition-all duration-300 hover:scale-125" title="Moon"></button>
+        <button onclick="scrollToSlide(2)" class="nav-dot w-3.5 h-3.5 rounded-full bg-indigo-400 opacity-40 transition-all duration-300 hover:scale-125" title="Stars"></button>
+        <button onclick="scrollToSlide(3)" class="nav-dot w-3.5 h-3.5 rounded-full bg-emerald-400 opacity-40 transition-all duration-300 hover:scale-125" title="Nature"></button>
+        <button onclick="scrollToSlide(4)" class="nav-dot w-3.5 h-3.5 rounded-full bg-rose-400 opacity-40 transition-all duration-300 hover:scale-125" title="Her Eyes"></button>
+        <button onclick="scrollToSlide(5)" class="nav-dot w-3.5 h-3.5 rounded-full bg-purple-500 opacity-40 transition-all duration-300 hover:scale-125" title="Celebration"></button>
+    </div>
+
+    <!-- Main Vertical Scrollable Story -->
+    <div class="snap-container relative z-20" id="scrollContainer">
+
+        <!-- Slide 1: Sun Phase -->
+        <section class="snap-section w-full flex flex-col items-center justify-center p-4">
+            <div class="aesthetic-card p-4 sm:p-6 rounded-3xl max-w-sm sm:max-w-md w-full border border-orange-300/80 text-center">
+                <div class="overflow-hidden rounded-2xl shadow-lg relative group">
+                    <img src="img1.jpg" alt="Sorry Sun" class="w-full h-[380px] sm:h-[440px] object-cover rounded-2xl transition duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/600x800/ffedd5/ea580c?text=Sorry+Sun'">
+                </div>
+                <h2 class="font-handwriting text-3xl sm:text-4xl text-orange-600 mt-4 font-bold">Sorry Sun ☀️</h2>
+                <p class="text-xs text-orange-900/80 mt-1 font-semibold">Ultra Golden Sunlight & Shimmering Flares</p>
+            </div>
+            <div class="absolute bottom-6 animate-bounce text-orange-600/90 text-2xl cursor-pointer" onclick="scrollToSlide(1)">
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- Slide 2: Moon Phase -->
+        <section class="snap-section w-full flex flex-col items-center justify-center p-4">
+            <div class="aesthetic-card p-4 sm:p-6 rounded-3xl max-w-sm sm:max-w-md w-full border border-blue-300/80 text-center">
+                <div class="overflow-hidden rounded-2xl shadow-lg relative group">
+                    <img src="img2.jpg" alt="Sorry Moon" class="w-full h-[380px] sm:h-[440px] object-cover rounded-2xl transition duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/600x800/dbeafe/1e40af?text=Sorry+Moon'">
+                </div>
+                <h2 class="font-handwriting text-3xl sm:text-4xl text-blue-600 mt-4 font-bold">Sorry Moon 🌙</h2>
+                <p class="text-xs text-blue-900/80 mt-1 font-semibold">Glowing Lunar Aura & Night Mist</p>
+            </div>
+            <div class="absolute bottom-6 animate-bounce text-blue-400 text-2xl cursor-pointer" onclick="scrollToSlide(2)">
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- Slide 3: Stars Phase -->
+        <section class="snap-section w-full flex flex-col items-center justify-center p-4">
+            <div class="aesthetic-card p-4 sm:p-6 rounded-3xl max-w-sm sm:max-w-md w-full border border-indigo-300/80 text-center">
+                <div class="overflow-hidden rounded-2xl shadow-lg relative group">
+                    <img src="img3.jpg" alt="Sorry Stars" class="w-full h-[380px] sm:h-[440px] object-cover rounded-2xl transition duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/600x800/e0e7ff/4338ca?text=Sorry+stars'">
+                </div>
+                <h2 class="font-handwriting text-3xl sm:text-4xl text-indigo-600 mt-4 font-bold">Sorry stars ✨</h2>
+                <p class="text-xs text-indigo-900/80 mt-1 font-semibold">Twinkling Stardust Sky</p>
+            </div>
+            <div class="absolute bottom-6 animate-bounce text-indigo-400 text-2xl cursor-pointer" onclick="scrollToSlide(3)">
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- Slide 4: Nature Phase -->
+        <section class="snap-section w-full flex flex-col items-center justify-center p-4">
+            <div class="aesthetic-card p-4 sm:p-6 rounded-3xl max-w-sm sm:max-w-md w-full border border-emerald-300/80 text-center">
+                <div class="overflow-hidden rounded-2xl shadow-lg relative group">
+                    <img src="img4.jpg" alt="Sorry Nature" class="w-full h-[380px] sm:h-[440px] object-cover rounded-2xl transition duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/600x800/d1fae5/059669?text=Sorry+nature'">
+                </div>
+                <h2 class="font-handwriting text-3xl sm:text-4xl text-emerald-600 mt-4 font-bold">Sorry nature 🌿</h2>
+                <p class="text-xs text-emerald-900/80 mt-1 font-semibold">Flying Birds & Drifting Autumn Leaves</p>
+            </div>
+            <div class="absolute bottom-6 animate-bounce text-emerald-500 text-2xl cursor-pointer" onclick="scrollToSlide(4)">
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- Slide 5: Her Eyes Phase -->
+        <section class="snap-section w-full flex flex-col items-center justify-center p-4">
+            <div class="aesthetic-card p-4 sm:p-6 rounded-3xl max-w-sm sm:max-w-md w-full border border-rose-300/80 text-center">
+                <div class="overflow-hidden rounded-2xl shadow-lg relative group">
+                    <img src="img5.jpg" alt="Her eyes are more beautiful." class="w-full h-[380px] sm:h-[440px] object-cover rounded-2xl transition duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/600x800/ffe4e6/e11d48?text=her+eyes+are+more+beautiful.'">
+                </div>
+                <h2 class="font-romantic text-3xl sm:text-4xl text-rose-600 mt-4 font-bold">her eyes are more beautiful. 👁️💖</h2>
+                <p class="text-xs text-rose-900/80 mt-1 font-semibold">Incomparable Grace & Beauty</p>
+            </div>
+            <div class="absolute bottom-6 animate-bounce text-rose-500 text-2xl cursor-pointer" onclick="scrollToSlide(5)">
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- Slide 6: Final Celebration Card (New Job & New Achievement) -->
+        <section class="snap-section w-full flex flex-col items-center justify-center p-4">
+            <div class="aesthetic-card p-6 sm:p-8 rounded-3xl max-w-lg w-full border border-purple-300 text-center relative overflow-hidden shadow-2xl">
+                <!-- Interactive Celebration Badge -->
+                <div id="badgeIcon" class="w-20 h-20 bg-gradient-to-tr from-purple-500 via-pink-500 to-amber-400 text-white rounded-full flex items-center justify-center mx-auto text-4xl mb-4 shadow-lg transition transform hover:scale-110 cursor-pointer" onclick="triggerConfetti()">
+                    🚀
+                </div>
+                
+                <h2 class="font-romantic text-3xl sm:text-4xl text-purple-700 font-bold mb-3">
+                    Congratulations on Your New Job & New Achievement! 🥳✨
+                </h2>
+                
+                <p class="text-gray-700 leading-relaxed text-sm sm:text-base font-semibold mb-4">
+                    The brightness of the sun, the glow of the moon, the beauty of nature—nothing compares to your dedication and this fantastic new milestone! Your hard work has paid off.
+                </p>
+
+                <div class="bg-purple-50 p-4 rounded-2xl border border-purple-200/80 mb-5">
+                    <p class="text-purple-900 text-xs sm:text-sm font-bold">
+                        "Wishing you endless success, joy, and incredible achievements in your new career chapter! You are the best friend forever! 🎉💪✨"
+                    </p>
+                </div>
+
+                <div class="pt-2 flex items-center justify-between text-xs text-purple-700 font-bold">
+                    <span>#ProudBestie #NewJourney</span>
+                    <button onclick="triggerConfetti()" class="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-full hover:opacity-95 transition shadow-lg flex items-center gap-2">
+                        <span>Celebrate 🎉</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        const scrollContainer = document.getElementById('scrollContainer');
+        const mainBody = document.getElementById('mainBody');
+        const dots = document.querySelectorAll('.nav-dot');
+        
+        const layers = {
+            0: document.getElementById('sun-layer'),
+            1: document.getElementById('moon-layer'),
+            2: document.getElementById('starsCanvas'),
+            3: document.getElementById('nature-layer'),
+            4: document.getElementById('eyes-layer'),
+            5: document.getElementById('congrats-layer')
+        };
+
+        const themeClasses = ['theme-sun', 'theme-moon', 'theme-stars', 'theme-nature', 'theme-eyes', 'theme-congrats'];
+
+        // 1. Generate Ultra-Bright Solar Sparks for Sun Phase
+        const sparksContainer = document.getElementById('solarSparksContainer');
+        for (let i = 0; i < 35; i++) {
+            const spark = document.createElement('div');
+            spark.className = 'solar-spark';
+            const size = Math.random() * 12 + 6;
+            spark.style.width = `${size}px`;
+            spark.style.height = `${size}px`;
+            spark.style.left = `${Math.random() * 100}vw`;
+            spark.style.bottom = `-20px`;
+            spark.style.animationDelay = `${Math.random() * 5}s`;
+            spark.style.animationDuration = `${Math.random() * 4 + 4}s`;
+            sparksContainer.appendChild(spark);
+        }
+
+        // 2. Stars & Shooting Stars Canvas
+        const canvas = document.getElementById('starsCanvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        let shootingStars = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initStars();
+        }
+
+        function initStars() {
+            stars = [];
+            for (let i = 0; i < 220; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2 + 0.3,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.03 + 0.008
+                });
+            }
+        }
+
+        function addShootingStar() {
+            if (shootingStars.length < 3 && Math.random() < 0.03) {
+                shootingStars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * (canvas.height / 2),
+                    length: Math.random() * 80 + 40,
+                    speed: Math.random() * 10 + 6,
+                    alpha: 1
+                });
+            }
+        }
+
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(star => {
+                star.alpha += star.speed;
+                if (star.alpha > 1 || star.alpha < 0) star.speed = -star.speed;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(star.alpha)})`;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#ffffff';
+                ctx.fill();
+            });
+
+            addShootingStar();
+            shootingStars.forEach((ss, idx) => {
+                ctx.beginPath();
+                ctx.moveTo(ss.x, ss.y);
+                ctx.lineTo(ss.x - ss.length, ss.y + ss.length);
+                ctx.strokeStyle = `rgba(255, 255, 255, ${ss.alpha})`;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                ss.x += ss.speed;
+                ss.y += ss.speed;
+                ss.alpha -= 0.02;
+
+                if (ss.alpha <= 0) shootingStars.splice(idx, 1);
+            });
+
+            requestAnimationFrame(drawStars);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        drawStars();
+
+        // 3. Nature Layer Falling Foliage
+        const natureLayer = document.getElementById('nature-layer');
+        const leafElements = ['🍃', '🌿', '🍁', '🌱', '🍂', '✨', '🌾'];
+        for (let i = 0; i < 30; i++) {
+            const leaf = document.createElement('div');
+            leaf.className = 'animate-rich-leaf text-xl sm:text-2xl pointer-events-none';
+            leaf.innerText = leafElements[Math.floor(Math.random() * leafElements.length)];
+            leaf.style.left = Math.random() * 100 + 'vw';
+            leaf.style.animationDelay = (Math.random() * 8) + 's';
+            leaf.style.animationDuration = (Math.random() * 6 + 6) + 's';
+            natureLayer.appendChild(leaf);
+        }
+
+        // 4. Her Eyes floating heart sparkles
+        const eyesLayer = document.getElementById('eyes-layer');
+        const eyeIcons = ['💖', '✨', '🌸', '🤍', '💫', '🌹'];
+        function createEyeHeart() {
+            const p = document.createElement('div');
+            p.className = 'absolute animate-rich-leaf text-xl sm:text-2xl pointer-events-none';
+            p.innerText = eyeIcons[Math.floor(Math.random() * eyeIcons.length)];
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = (Math.random() * 4 + 5) + 's';
+            eyesLayer.appendChild(p);
+
+            setTimeout(() => p.remove(), 8000);
+        }
+        setInterval(createEyeHeart, 400);
+
+        // 5. Celebration Confetti Generator
+        const congratsLayer = document.getElementById('congrats-layer');
+        const confettiItems = ['🎉', '✨', '🥳', '🚀', '⭐', '🎈', '💖'];
+        function createConfettiPiece() {
+            const item = document.createElement('div');
+            item.className = 'confetti-piece text-xl sm:text-3xl pointer-events-none';
+            item.innerText = confettiItems[Math.floor(Math.random() * confettiItems.length)];
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.animationDuration = (Math.random() * 2.5 + 2.5) + 's';
+            congratsLayer.appendChild(item);
+
+            setTimeout(() => item.remove(), 5000);
+        }
+        setInterval(createConfettiPiece, 300);
+
+        // 6. Scroll & Theme Navigation Controller
+        function scrollToSlide(index) {
+            scrollContainer.scrollTo({
+                top: window.innerHeight * index,
+                behavior: 'smooth'
+            });
+        }
+
+        scrollContainer.addEventListener('scroll', () => {
+            const index = Math.round(scrollContainer.scrollTop / window.innerHeight);
+
+            // Change Body Theme Class
+            mainBody.className = `${themeClasses[index]} relative text-gray-800 select-none`;
+
+            // Toggle Phase Layers Visibility
+            Object.keys(layers).forEach(key => {
+                if (layers[key]) {
+                    if (parseInt(key) === index) {
+                        layers[key].classList.remove('opacity-0');
+                        layers[key].classList.add('opacity-100');
+                    } else {
+                        layers[key].classList.remove('opacity-100');
+                        layers[key].classList.add('opacity-0');
+                    }
+                }
+            });
+
+            // Update Navigation Dots
+            dots.forEach((dot, idx) => {
+                if (idx === index) {
+                    dot.classList.add('opacity-100', 'scale-150');
+                    dot.classList.remove('opacity-40');
+                } else {
+                    dot.classList.remove('opacity-100', 'scale-150');
+                    dot.classList.add('opacity-40');
+                }
+            });
+        });
+
+        dots[0].classList.add('opacity-100', 'scale-150');
+
+        // 7. Ambient Music Controller
+        const bgAudio = document.getElementById('bgAudio');
+        const musicToggle = document.getElementById('musicToggle');
+        const musicIcon = document.getElementById('musicIcon');
+        const musicText = document.getElementById('musicText');
+        let isPlaying = false;
+
+        musicToggle.addEventListener('click', () => {
+            if (isPlaying) {
+                bgAudio.pause();
+                musicIcon.classList.remove('fa-pause');
+                musicIcon.classList.add('fa-compact-disc');
+                musicText.innerText = "Play Ambient Sound";
+            } else {
+                bgAudio.play();
+                musicIcon.classList.remove('fa-compact-disc');
+                musicIcon.classList.add('fa-pause');
+                musicText.innerText = "Playing Music ✨";
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // 8. Interactive Confetti Burst
+        function triggerConfetti() {
+            for (let i = 0; i < 35; i++) {
+                const p = document.createElement('div');
+                p.innerText = confettiItems[Math.floor(Math.random() * confettiItems.length)];
+                p.className = 'fixed text-2xl z-50 pointer-events-none transition-all duration-1000 ease-out';
+                p.style.left = '50vw';
+                p.style.top = '50vh';
+                document.body.appendChild(p);
+
+                const angle = Math.random() * Math.PI * 2;
+                const dist = Math.random() * 220 + 60;
+                const tx = Math.cos(angle) * dist;
+                const ty = Math.sin(angle) * dist;
+
+                requestAnimationFrame(() => {
+                    p.style.transform = `translate(${tx}px, ${ty}px) scale(1.6) rotate(360deg)`;
+                    p.style.opacity = '0';
+                });
+
+                setTimeout(() => p.remove(), 1200);
+            }
+        }
+    </script>
+</body>
+</html>
